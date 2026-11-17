@@ -1,0 +1,189 @@
+{
+  "version": "1.0.0",
+  "lastUpdatedUtc": "2026-11-17T00:00:00.000Z",
+  "creator": {
+    "name": "Aman Jha",
+    "role": "Creator & Lead Architect of ARKA",
+    "title": "AI Engineer & Systems Architect",
+    "honors": [
+      "Open-Source AI Advocate",
+      "Local-First Intelligence Pioneer"
+    ]
+  },
+  "curriculum": {
+    "totalDatasets": 4,
+    "totalRecords": 0,
+    "baseRecords": 0,
+    "totalTokens": 0,
+    "baseTokens": 0,
+    "tokensFormatted": "N/A (Modelfile Configurations)",
+    "baseTokensFormatted": "N/A",
+    "cumulativeUniqueTrained": 0,
+    "activeCursorOffset": 0,
+    "totalSteps": 0,
+    "tokensTrained": 0,
+    "tokensTrainedFormatted": "N/A",
+    "heldoutPpl": 0,
+    "lossReductionPct": 0,
+    "dpoAccuracyPct": 0,
+    "activeEpoch": 0,
+    "duplicationRatePct": 0,
+    "deduplicationProtocol": "Modelfile Blueprints - Zero Training Required",
+    "externalStorage": "N/A - Ollama Registry",
+    "checkpointIntegrity": "100% INSPECTABLE (4 Modelfile Blueprints)",
+    "tiers": [
+      {
+        "tier": "router",
+        "baseModel": "qwen2.5:1.5b",
+        "steps": 0,
+        "final_loss": 0,
+        "tokens": 0,
+        "health": "MODFILE_READY"
+      },
+      {
+        "tier": "coder",
+        "baseModel": "qwen2.5-coder:3b",
+        "steps": 0,
+        "final_loss": 0,
+        "tokens": 0,
+        "health": "MODFILE_READY"
+      },
+      {
+        "tier": "agent",
+        "baseModel": "qwen2.5:3b",
+        "steps": 0,
+        "final_loss": 0,
+        "tokens": 0,
+        "health": "MODFILE_READY"
+      },
+      {
+        "tier": "reasoner",
+        "baseModel": "deepseek-r1:7b",
+        "steps": 0,
+        "final_loss": 0,
+        "tokens": 0,
+        "health": "MODFILE_READY"
+      }
+    ]
+  },
+  "topics": [
+    {
+      "name": "Intent Classification & Routing",
+      "count": 0,
+      "percentage": 25,
+      "samplePrompts": [
+        "Route this query to the appropriate specialist: Write a thread-safe queue in C++17",
+        "Classify: Prove that sqrt(2) is irrational",
+        "Dispatch: List files in /home/user and summarize each",
+        "Route: Explain the tradeoffs of microservices vs monolith"
+      ]
+    },
+    {
+      "name": "Systems Programming (C++17/Python)",
+      "count": 0,
+      "percentage": 25,
+      "samplePrompts": [
+        "Implement a lock-free MPMC queue in modern C++17 with RAII",
+        "Write a FastAPI service with strict type hints and Pydantic validation",
+        "Optimize this algorithm: explain time/space complexity and edge cases",
+        "Create a thread-safe connection pool for SQLite with WAL mode"
+      ]
+    },
+    {
+      "name": "MCP Tool Execution & Agent Orchestration",
+      "count": 0,
+      "percentage": 25,
+      "samplePrompts": [
+        "Execute: list directory contents, then read config.yaml",
+        "Run calculator tool: compute 4096 * 64 as hex",
+        "If insufficient context, respond with INSUFFICIENT_CONTEXT",
+        "Orchestrate multi-step file operation with JSON-RPC 2.0"
+      ]
+    },
+    {
+      "name": "Mathematical Proofs & Architecture Reasoning",
+      "count": 0,
+      "percentage": 25,
+      "samplePrompts": [
+        "Prove the fundamental theorem of algebra step by step",
+        "Analyze tradeoffs: event-driven vs thread-per-request architectures",
+        "Verify: <thought> step-by-step reasoning </thought> before final answer",
+        "Systems design: design a distributed rate limiter with consistency guarantees"
+      ]
+    }
+  ],
+  "platforms": [
+    {
+      "id": "ollama",
+      "title": "Ollama Local Runtime",
+      "subtitle": "Native ARKA Model Configurations",
+      "category": "Local Runtime",
+      "architecture": "4 specialized Modelfile configurations (router, coder, agent, reasoner) with native system prompts and few-shot examples.",
+      "latency": "Zero-config one-command pull",
+      "memory": "1.2 GB (Router) to 4.9 GB (Reasoner) Q4_K_M",
+      "throughput": "55-180 tok/s on Apple Silicon",
+      "command": "ollama run amanjha112113/Arka:coder",
+      "statusBadge": "SYNCED (4 Tags)"
+    },
+    {
+      "id": "ollama-registry",
+      "title": "Ollama Registry",
+      "subtitle": "Official ARKA Repository",
+      "category": "Model Registry",
+      "architecture": "Version-controlled Modelfile blueprints with full parameter transparency.",
+      "latency": "Global CDN distribution",
+      "memory": "Modelfile definitions only (~KB each)",
+      "throughput": "Instant pull & run",
+      "command": "ollama pull amanjha112113/Arka:router",
+      "statusBadge": "LIVE"
+    },
+    {
+      "id": "opencode",
+      "title": "OpenCode IDE Integration",
+      "subtitle": "Drop-in Provider Configuration",
+      "category": "IDE Extension",
+      "architecture": "Native OpenCode provider config mapping all 4 ARKA tags for coding tasks.",
+      "latency": "Sub-second local inference",
+      "memory": "Shared with IDE process",
+      "throughput": "120 tok/s (Coder tier)",
+      "command": "opencode config set provider ollama-arka",
+      "statusBadge": "READY"
+    },
+    {
+      "id": "continue-dev",
+      "title": "Continue.dev IDE Integration",
+      "subtitle": "Local-First Coding Assistant",
+      "category": "IDE Extension",
+      "architecture": "Continue.dev config with ARKA models for autocomplete and chat.",
+      "latency": "Local Ollama endpoint",
+      "memory": "Shared with editor",
+      "throughput": "Native streaming",
+      "command": "Continue: Add local Ollama models",
+      "statusBadge": "CONFIGURED"
+    },
+    {
+      "id": "langgraph",
+      "title": "LangGraph Multi-Agent Router",
+      "subtitle": "Deterministic Agent Orchestration",
+      "category": "Agent Framework",
+      "architecture": "Router (1.5B) classifies intent -> dispatches to Coder/Agent/Reasoner via typed edges.",
+      "latency": "<120ms routing decision",
+      "memory": "Combined: ~6-11 GB for full stack",
+      "throughput": "Parallel agent execution",
+      "command": "python langgraph_router.py",
+      "statusBadge": "IMPLEMENTED"
+    },
+    {
+      "id": "python-sdk",
+      "title": "Python Client (OpenAI/Ollama SDK)",
+      "subtitle": "OpenAI-Compatible /v1 Endpoint",
+      "category": "SDK",
+      "architecture": "Drop-in replacement for OpenAI API using http://localhost:11434/v1",
+      "latency": "Local network round-trip",
+      "memory": "Client-side minimal",
+      "throughput": "Full local throughput",
+      "command": "from openai import OpenAI; client = OpenAI(base_url=\"http://localhost:11434/v1\")",
+      "statusBadge": "COMPATIBLE"
+    }
+  ]
+}

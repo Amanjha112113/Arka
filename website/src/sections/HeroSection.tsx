@@ -1,0 +1,231 @@
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import { ArrowDown, ExternalLink } from 'lucide-react';
+import { HuggingFaceLogo } from '../components/PlatformLogos';
+
+interface HeroSectionProps {
+  onOpenDocs: () => void;
+}
+
+const HERO_TIERS = [
+  { tag: 'router', name: 'Arka Nano Router', baseModel: 'qwen2.5:1.5b', ctx: '4K', ram: '~1.2 GB', radius: 110, duration: 22, startAngle: 15, accent: '#F59E0B', params: '1.5B' },
+  { tag: 'coder', name: 'Arka Systems Coder', baseModel: 'qwen2.5-coder:3b', ctx: '8K', ram: '~2.4 GB', radius: 155, duration: 28, startAngle: 90, accent: '#06B6D4', params: '3B' },
+  { tag: 'agent', name: 'Arka MCP Agent', baseModel: 'qwen2.5:3b', ctx: '16K', ram: '~2.8 GB', radius: 200, duration: 36, startAngle: 165, accent: '#8B5CF6', params: '3B' },
+  { tag: 'reasoner', name: 'Arka Deep Reasoner', baseModel: 'deepseek-r1:7b', ctx: '16K', ram: '~4.9 GB', radius: 250, duration: 44, startAngle: 240, accent: '#EF4444', params: '7B' },
+];
+
+export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenDocs }) => {
+  const containerRef = useRef<HTMLElement>(null);
+
+  // Kinetic scroll progress across 200vh track (pinned for 100vh)
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start start', 'end end'],
+  });
+  const smoothScroll = useSpring(scrollYProgress, { damping: 28, stiffness: 180, mass: 0.6 });
+
+  // Solar Zoom through the sun
+  const sunScale = useTransform(smoothScroll, [0, 0.9], [1, 3.5]);
+  const sunOpacity = useTransform(smoothScroll, [0, 0.8, 1], [1, 1, 1]);
+  const orbitsScale = useTransform(smoothScroll, [0, 0.85], [1, 2.5]);
+  const orbitsOpacity = useTransform(smoothScroll, [0, 0.35, 0.65], [1, 0.7, 0]);
+  const bgScale = useTransform(smoothScroll, [0, 1], [1, 1.4]);
+
+  // Foreground copy & quick action bar fade gently on initial scroll
+  const contentY = useTransform(smoothScroll, [0, 0.38], ['0%', '25%']);
+  const contentOpacity = useTransform(smoothScroll, [0, 0.30], [1, 0]);
+
+  // Solar Daylight Bloom: seamlessly transitions the dark celestial sanctuary
+  // directly into the warm #FBF9F5 daylight marble aesthetic of the About section (zero black gap)
+  const daylightBloom = useTransform(smoothScroll, [0.45, 0.85, 1], [0, 0.85, 1]);
+
+  return (
+    <section
+      id="hero"
+      ref={containerRef}
+      className="relative h-[200vh] bg-[#09090B] text-[#FAFAFA]"
+    >
+      {/* Sticky Fullscreen Viewport Stage */}
+      <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-between pt-24 pb-8 px-4 sm:px-6">
+        {/* Layer 0: Celestial Ruins Background with Parallax */}
+        <motion.div
+          style={{ scale: bgScale, opacity: useTransform(smoothScroll, [0, 0.5], [0.4, 0]) }}
+          className="pointer-events-none absolute inset-0 z-0"
+        >
+          <div 
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{ 
+              backgroundImage: `url('/assets/celestial-ruins-dusk-bg.png')`,
+            }}
+          />
+          {/* Dark blend overlay */}
+          <div className="absolute inset-0 bg-[#09090B]/60" />
+          
+          {/* Floating celestial particles */}
+          <div className="absolute inset-0 opacity-20">
+            {[...Array(30)].map((_, i) => (
+              <motion.div
+                key={i}
+                className="absolute w-1 h-1 bg-[#FF5500] rounded-full"
+                style={{
+                  left: `${Math.random() * 100}%`,
+                  top: `${Math.random() * 100}%`,
+                }}
+                animate={{
+                  opacity: [0, 1, 0],
+                  scale: [0, 1.5, 0],
+                  y: [0, -30, -60],
+                }}
+                transition={{
+                  duration: 4 + Math.random() * 3,
+                  repeat: Infinity,
+                  delay: Math.random() * 3,
+                }}
+              />
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Layer 1: Atmospheric Technical Canvas */}
+        <motion.div
+          style={{ scale: bgScale }}
+          className="pointer-events-none absolute inset-0 z-[1]"
+        >
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-transparent via-[#09090B]/60 to-[#09090B]" />
+          <div
+            className="absolute inset-0 opacity-10"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23F59E0B' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+            }}
+          />
+        </motion.div>
+
+        {/* Layer 2: Interactive Kinetic ARKA Core & Orbital Rings */}
+        <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center -translate-y-8 sm:-translate-y-12 overflow-hidden">
+          {/* Central ARKA Core with Orbital Rings */}
+          <motion.div
+            style={{ scale: sunScale, opacity: sunOpacity }}
+            className="relative flex items-center justify-center"
+          >
+            <div className="w-[260px] h-[260px] sm:w-[440px] sm:h-[440px] rounded-full bg-radial from-[#FF5500]/65 via-[#FF7700]/25 to-transparent blur-3xl" />
+            <div className="absolute w-[180px] h-[180px] sm:w-[300px] sm:h-[300px] rounded-full bg-radial from-[#FFA040]/75 via-[#FF5500]/30 to-transparent blur-xl" />
+
+            <motion.img
+              src="/assets/sun.webp"
+              alt="ARKA Sun Core"
+              animate={{ rotate: 360 }}
+              transition={{ duration: 140, repeat: Infinity, ease: 'linear' }}
+              className="absolute w-40 h-40 sm:w-68 sm:h-68 object-contain drop-shadow-[0_0_85px_rgba(255,85,0,0.85)]"
+            />
+          </motion.div>
+
+          {/* 4 Kinetic Orbital Paths with Responsive Scaling */}
+          <motion.div
+            style={{ scale: orbitsScale, opacity: orbitsOpacity }}
+            className="absolute inset-0 flex items-center justify-center pointer-events-none scale-[0.65] sm:scale-100 origin-center"
+          >
+            {HERO_TIERS.map((tier) => (
+              <motion.div
+                key={tier.tag}
+                animate={{ rotate: [tier.startAngle, tier.startAngle + 360] }}
+                transition={{
+                  duration: tier.duration,
+                  repeat: Infinity,
+                  ease: 'linear',
+                }}
+                style={{
+                  width: tier.radius * 2,
+                  height: tier.radius * 2,
+                }}
+                className="absolute rounded-full border border-white/[0.08] flex items-center justify-center"
+              >
+                <div className="absolute left-1/2 -translate-x-1/2 -top-1.5 w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#FF5500] shadow-[0_0_12px_#FF5500] flex items-center justify-center">
+                  <motion.div
+                    animate={{ rotate: [-tier.startAngle, -(tier.startAngle + 360)] }}
+                    transition={{
+                      duration: tier.duration,
+                      repeat: Infinity,
+                      ease: 'linear',
+                    }}
+                    className="hidden lg:inline-flex items-center gap-1.5 absolute left-4 whitespace-nowrap font-mono-tabular text-[9px] uppercase tracking-wider text-[#FAF7F2] bg-[#141312]/90 px-2 py-0.5 rounded-full border border-white/10 backdrop-blur-md"
+                  >
+                    <span className="text-[#FF5500] font-bold">{tier.tag}</span>
+                    <span className="text-white/60">· {tier.params}</span>
+                  </motion.div>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+
+        {/* Layer 3: Daylight Bloom Overlay (Crossfades seamlessly into About Section) */}
+        <motion.div
+          style={{ opacity: daylightBloom }}
+          className="pointer-events-none absolute inset-0 z-20 bg-gradient-to-b from-[#FFA040]/30 via-[#FBF9F5] to-[#FBF9F5]"
+        />
+
+        {/* Central Hero Header & Value Proposition */}
+        <motion.div
+          style={{ y: contentY, opacity: contentOpacity }}
+          className="relative z-30 max-w-3xl w-full mx-auto text-center my-auto flex flex-col items-center px-1"
+        >
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] sm:text-xs font-mono-tabular uppercase tracking-[0.2em] text-[#FF5500] mb-3">
+            <span>LOCAL-FIRST · ZERO TELEMETRY · OLLAMA NATIVE</span>
+          </div>
+
+          {/* Monumental Typographic Title */}
+          <h1 className="font-display font-bold text-5xl sm:text-7xl md:text-8xl lg:text-9xl leading-none tracking-[0.16em] text-[#FAF7F2] drop-shadow-[0_12px_45px_rgba(0,0,0,0.9)] select-none">
+            ARKA
+          </h1>
+
+          <div className="mt-3 px-4 sm:px-6 py-3 rounded-2xl bg-[#0D0C0B]/65 backdrop-blur-md border border-white/5 max-w-2xl mx-auto shadow-xl">
+            <p className="font-serif-editorial text-base sm:text-xl md:text-2xl text-[#FAF7F2] font-light leading-snug">
+              Deterministic Intelligence Engineered for{' '}
+              <span className="text-[#FF5500] font-normal underline decoration-[#FF5500]/40 underline-offset-4">everyday hardware</span> and{' '}
+              <span className="text-[#FF5500] font-normal underline decoration-[#FF5500]/40 underline-offset-4">verifiable truth</span>.
+            </p>
+
+            <p className="mt-1.5 text-[11px] sm:text-xs text-[#FAF7F2]/75 leading-relaxed">
+              Four specialized open-weight configurations (:router, :coder, :agent, :reasoner) tuned for low-RAM execution, strict JSON tool-calling, and reproducible local inference. Zero cloud lock-in, zero telemetry.
+            </p>
+          </div>
+
+          {/* Quick Action Navigation Bar */}
+          <div className="mt-6 sm:mt-8 flex flex-wrap items-center justify-center gap-2.5 w-full">
+            <a
+              href="#family"
+              className="px-5 py-2 rounded-full bg-[#FAF7F2] text-[#0D0C0B] text-[11px] sm:text-xs font-semibold uppercase tracking-[0.14em] hover:bg-[#FF5500] hover:text-white transition-all shadow-md active:scale-95"
+            >
+              Explore 4 Tiers
+            </a>
+            <button
+              onClick={onOpenDocs}
+              className="px-5 py-2 rounded-full bg-white/10 hover:bg-white/20 text-[#FAF7F2] border border-white/15 backdrop-blur-md text-[11px] sm:text-xs font-semibold uppercase tracking-[0.14em] transition-all cursor-pointer active:scale-95"
+            >
+              Architecture Specs
+            </button>
+            <a
+              href="https://github.com/AmanJha112113/Arka"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-white/5 hover:bg-white/15 text-[#FAF7F2] border border-white/10 text-[11px] sm:text-xs font-mono-tabular transition-colors"
+            >
+              <HuggingFaceLogo size={14} />
+              <span className="hidden sm:inline">GitHub Repository</span>
+              <ExternalLink className="w-3 h-3 opacity-60" />
+            </a>
+          </div>
+        </motion.div>
+
+        {/* Bottom Scroll Cue */}
+        <motion.div
+          style={{ opacity: contentOpacity }}
+          className="relative z-30 inline-flex items-center justify-center gap-2 text-[9px] sm:text-[10px] font-mono-tabular uppercase tracking-[0.24em] text-white/45 pb-1 text-center w-full"
+        >
+          <span>Scroll to explore architecture</span>
+          <ArrowDown className="w-3 h-3 animate-bounce text-[#FF5500]" />
+        </motion.div>
+      </div>
+    </section>
+  );
+};

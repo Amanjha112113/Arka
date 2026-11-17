@@ -1,0 +1,35 @@
+{
+  "$schema": "https://continue.dev/schema/config.json",
+  "models": [
+    {
+      "title": "Arka Systems Coder",
+      "provider": "ollama",
+      "model": "amanjha112113/Arka:coder",
+      "apiBase": "http://localhost:11434",
+      "roles": ["chat", "edit"],
+      "contextLength": 8192
+    },
+    {
+      "title": "Arka Deep Reasoner",
+      "provider": "ollama",
+      "model": "amanjha112113/Arka:reasoner",
+      "apiBase": "http://localhost:11434",
+      "roles": ["chat"],
+      "contextLength": 16384
+    },
+    {
+      "title": "Arka MCP Agent",
+      "provider": "ollama",
+      "model": "amanjha112113/Arka:agent",
+      "apiBase": "http://localhost:11434",
+      "roles": ["edit"],
+      "contextLength": 16384
+    }
+  ],
+  "tabAutocompleteModel": {
+    "title": "Arka Systems Coder (Autocomplete)",
+    "provider": "ollama",
+    "model": "amanjha112113/Arka:coder",
+    "apiBase": "http://localhost:11434"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "$schema": "https://opencode.ai/schema/provider.json",
+  "name": "Ollama (Arka)",
+  "type": "openai-compatible",
+  "api_base": "http://localhost:11434/v1",
+  "api_key": "ollama",
+  "models": [
+    {
+      "id": "amanjha112113/Arka:router",
+      "name": "Arka Nano Router (1.5B)",
+      "context_window": 4096,
+      "default_temperature": 0.0,
+      "roles": ["intent_classification", "routing"]
+    },
+    {
+      "id": "amanjha112113/Arka:coder",
+      "name": "Arka Systems Coder (3B)",
+      "context_window": 8192,
+      "default_temperature": 0.1,
+      "roles": ["code_generation", "code_review", "refactor"]
+    },
+    {
+      "id": "amanjha112113/Arka:agent",
+      "name": "Arka MCP Agent (3B)",
+      "context_window": 16384,
+      "default_temperature": 0.0,
+      "roles": ["terminal_execution", "mcp_tools"]
+    },
+    {
+      "id": "amanjha112113/Arka:reasoner",
+      "name": "Arka Deep Reasoner (7B)",
+      "context_window": 16384,
+      "default_temperature": 0.2,
+      "roles": ["mathematical_proofs", "complex_reasoning"]
+    }
+  ]
+}
