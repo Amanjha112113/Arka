@@ -1,8 +1,8 @@
 {
-  "framework": "vite",
-  "rootDirectory": "website",
-  "buildCommand": "cd website && npm run build",
+  "buildCommand": "npm --prefix website run build",
   "outputDirectory": "website/dist",
+  "cleanUrls": true,
+  "trailingSlash": false,
   "rewrites": [
     {
       "source": "/(.*)",
